@@ -1,0 +1,418 @@
+﻿{
+  "1": {
+    "ids": null,
+    "prefabName": "Level1",
+    "prefabPath": null,
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "2": {
+    "ids": 2.0,
+    "prefabName": "Level2",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "3": {
+    "ids": 3.0,
+    "prefabName": "Level3",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "4": {
+    "ids": 4.0,
+    "prefabName": "Level4",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "5": {
+    "ids": 5.0,
+    "prefabName": "Level5",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "6": {
+    "ids": 6.0,
+    "prefabName": "Level6",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "7": {
+    "ids": 7.0,
+    "prefabName": "Level7",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "8": {
+    "ids": 8.0,
+    "prefabName": "Level8",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "9": {
+    "ids": 9.0,
+    "prefabName": "Level9",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "10": {
+    "ids": 10.0,
+    "prefabName": "Level10",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "11": {
+    "ids": 11.0,
+    "prefabName": "Level11",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "12": {
+    "ids": 12.0,
+    "prefabName": "Level12",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "13": {
+    "ids": 13.0,
+    "prefabName": "Level13",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "14": {
+    "ids": 14.0,
+    "prefabName": "Level14",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "15": {
+    "ids": 15.0,
+    "prefabName": "Level15",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "16": {
+    "ids": 16.0,
+    "prefabName": "Level16",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "17": {
+    "ids": 17.0,
+    "prefabName": "Level17",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "18": {
+    "ids": 18.0,
+    "prefabName": "Level18",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "19": {
+    "ids": 19.0,
+    "prefabName": "Level19",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "20": {
+    "ids": 20.0,
+    "prefabName": "Level20",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "21": {
+    "ids": 21.0,
+    "prefabName": "Level21",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "22": {
+    "ids": 22.0,
+    "prefabName": "Level22",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "23": {
+    "ids": 23.0,
+    "prefabName": "Level23",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "24": {
+    "ids": 24.0,
+    "prefabName": "Level24",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "25": {
+    "ids": 25.0,
+    "prefabName": "Level25",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "26": {
+    "ids": 26.0,
+    "prefabName": "Level26",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "27": {
+    "ids": 27.0,
+    "prefabName": "Level27",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "28": {
+    "ids": 28.0,
+    "prefabName": "Level28",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "29": {
+    "ids": 29.0,
+    "prefabName": "Level29",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "30": {
+    "ids": 30.0,
+    "prefabName": "Level30",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "31": {
+    "ids": 31.0,
+    "prefabName": "Level31",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "32": {
+    "ids": 32.0,
+    "prefabName": "Level32",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "33": {
+    "ids": 33.0,
+    "prefabName": "Level33",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "34": {
+    "ids": 34.0,
+    "prefabName": "Level34",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "35": {
+    "ids": 35.0,
+    "prefabName": "Level35",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "36": {
+    "ids": 36.0,
+    "prefabName": "Level36",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "37": {
+    "ids": 37.0,
+    "prefabName": "Level37",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "38": {
+    "ids": 38.0,
+    "prefabName": "Level38",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "39": {
+    "ids": 39.0,
+    "prefabName": "Level39",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "40": {
+    "ids": 40.0,
+    "prefabName": "Level40",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "41": {
+    "ids": 41.0,
+    "prefabName": "Level41",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "42": {
+    "ids": 42.0,
+    "prefabName": "Level42",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "43": {
+    "ids": 43.0,
+    "prefabName": "Level43",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "44": {
+    "ids": 44.0,
+    "prefabName": "Level44",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "45": {
+    "ids": 45.0,
+    "prefabName": "Level45",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "46": {
+    "ids": 46.0,
+    "prefabName": "Level46",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "47": {
+    "ids": 47.0,
+    "prefabName": "Level47",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "48": {
+    "ids": 48.0,
+    "prefabName": "Level48",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "49": {
+    "ids": 49.0,
+    "prefabName": "Level49",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "50": {
+    "ids": 50.0,
+    "prefabName": "Level50",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "51": {
+    "ids": 51.0,
+    "prefabName": "Level51",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  },
+  "52": {
+    "ids": 52.0,
+    "prefabName": "Level52",
+    "prefabPath": "Art/Prefab",
+    "title": "哈哈",
+    "tips": "啦啦",
+    "solution": "卡卡"
+  }
+}

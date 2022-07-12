@@ -56,7 +56,7 @@ namespace Excel2Json
         /// <summary>
         /// 模板ts文件路径
         /// </summary>
-        private string templateFile = Path.Combine(PARENT_PATH, @"Config\TemplateClass.ts");
+        private string templateFile = Path.Combine(PARENT_PATH, CONFIG_FILE_DIR + @"\TemplateClass.ts");
 
         private List<IWorkbook> workbooks;
 
@@ -112,6 +112,11 @@ namespace Excel2Json
 
         }
 
+        /// <summary>
+        /// 保存文件地址配置按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveConfigBtn_Click(object sender, EventArgs e)
         {
             if (workbooks.Count == 0)
@@ -154,6 +159,11 @@ namespace Excel2Json
             MessageBox.Show("配置导出成功");
         }
 
+        /// <summary>
+        /// 保存数据类型按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveTsBtn_Click(object sender, EventArgs e)
         {
             if (workbooks.Count == 0)
@@ -209,6 +219,7 @@ namespace Excel2Json
             {
                 ISheet sheet = workbook.GetSheetAt(i);
 
+
                 int rows = sheet.PhysicalNumberOfRows;//行数
                 if (rows.Equals(0))
                 {
@@ -219,8 +230,12 @@ namespace Excel2Json
                 IRow typeRow = sheet.GetRow(1);//取第二行为类型值
 
 
+                //字段行
                 List<ICell> allNameCells = nameRow.Cells;
+                //类型行
                 List<ICell> allTypeCells = typeRow.Cells;
+
+                int cols = allNameCells.Count;
 
                 int startReadRowIndex = Form1.tableHeadIndex;
                 System.Collections.IEnumerator enumerator = sheet.GetRowEnumerator();
@@ -236,14 +251,26 @@ namespace Excel2Json
                     }
 
                     IRow currentRow = enumerator.Current as IRow;//当前需要读取的行数据
-                    List<ICell> currentCellsList = currentRow.Cells;//当前行的每一列集合
+                    bool isEmptyRow = false;//当前行是否作废
 
                     JObject rowObj = new JObject();
-                    for (int j = 0; j < currentCellsList.Count; j++)
+                    for (int j = 0; j < cols; j++)
                     {
-                        ICell cell = currentCellsList[j];
+                        ICell cell = currentRow.GetCell(j);
+
                         if (j == Form1.dictJsonKeyIndex)//取第一列为key
                         {
+                            if (cell == null)//如果第一列是空的格子，则没必要继续初始化下去了
+                            {
+                                isEmptyRow = true;
+                                break;
+                            }
+                            continue;
+                        }
+
+                        if (cell == null)
+                        {
+                            rowObj[allNameCells[j].StringCellValue] = null;
                             continue;
                         }
                         else
@@ -259,10 +286,7 @@ namespace Excel2Json
                                 {
 
                                 }
-                                if (str == null || str.Equals(""))
-                                {
-                                    str = cell.NumericCellValue.ToString();
-                                }
+                           
                                 JArray array = this.tryDeserializeObject<JArray>(str);//尝试转成需要类型
 
                                 if (array != null)
@@ -298,14 +322,20 @@ namespace Excel2Json
                         }
 
                     }
-                    JToken jToken = JToken.FromObject(rowObj);
-                    if (allTypeCells[Form1.dictJsonKeyIndex].StringCellValue == "int" || allTypeCells[Form1.dictJsonKeyIndex].StringCellValue == "number")
+
+                    if (!isEmptyRow)
                     {
-                        outObj.Add(currentCellsList[Form1.dictJsonKeyIndex].NumericCellValue.ToString(), jToken);
-                    }
-                    else if (currentCellsList[Form1.dictJsonKeyIndex].StringCellValue != "")
-                    {
-                        outObj.Add(currentCellsList[Form1.dictJsonKeyIndex].StringCellValue, jToken);
+                        JToken jToken = JToken.FromObject(rowObj);
+                        ICell headCell = currentRow.GetCell(Form1.dictJsonKeyIndex);
+                        if (allTypeCells[Form1.dictJsonKeyIndex].StringCellValue == "int" || allTypeCells[Form1.dictJsonKeyIndex].StringCellValue == "number")
+                        {
+                            outObj.Add(headCell.NumericCellValue.ToString(), jToken);
+                        }
+                        else if (headCell.StringCellValue != "")
+                        {
+                            outObj.Add(headCell.StringCellValue, jToken);
+                        }
+
                     }
 
                 }
@@ -677,7 +707,7 @@ namespace Excel2Json
                     workbooks.Clear();
                 }
 
-                FileStream fileStream = new FileStream(excelPaths, FileMode.Open, FileAccess.Read,FileShare.ReadWrite);
+                FileStream fileStream = new FileStream(excelPaths, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
                 IWorkbook workbook = WorkbookFactory.Create(fileStream);
                 workbooks.Add(workbook);
