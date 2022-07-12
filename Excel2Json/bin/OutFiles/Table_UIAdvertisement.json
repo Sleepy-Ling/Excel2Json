@@ -1,0 +1,79 @@
+﻿{
+  "BeginView": {
+    "ShowAdType": [
+      0,
+      1
+    ],
+    "ShowAdParam": [
+      [
+        1,
+        2
+      ]
+    ],
+    "CtrlAdOnlineParam": [
+      "showDuilian"
+    ]
+  },
+  "GameView": {
+    "ShowAdType": [
+      0,
+      1
+    ],
+    "ShowAdParam": [
+      [
+        1,
+        2
+      ]
+    ],
+    "CtrlAdOnlineParam": [
+      "showDuilian"
+    ]
+  },
+  "GameEndView": {
+    "ShowAdType": [
+      0,
+      1,
+      2
+    ],
+    "ShowAdParam": [
+      [
+        1,
+        2
+      ]
+    ],
+    "CtrlAdOnlineParam": [
+      "showDuilian",
+      "",
+      "insertAdChance"
+    ]
+  },
+  "AddEnergyView": {
+    "ShowAdType": [
+      0,
+      1
+    ],
+    "ShowAdParam": [
+      [
+        1,
+        2
+      ]
+    ],
+    "CtrlAdOnlineParam": [
+      "showDuilian"
+    ]
+  },
+  "ADRecomandView": {
+    "ShowAdType": [
+      0
+    ],
+    "ShowAdParam": [
+      [
+        1,
+        2
+      ]
+    ],
+    "CtrlAdOnlineParam": [
+      "showDuilian"
+    ]
+  }
+}

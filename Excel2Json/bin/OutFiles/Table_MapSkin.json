@@ -1,0 +1,20 @@
+﻿{
+  "1": {
+    "skinName_P": "MapSkin_P_1",
+    "skinName_H": "MapSkin_H_1",
+    "iconName": "MapSkin_I_1",
+    "unlockWay": 0.0
+  },
+  "2": {
+    "skinName_P": "MapSkin_P_2",
+    "skinName_H": "MapSkin_H_2",
+    "iconName": "MapSkin_I_2",
+    "unlockWay": 1.0
+  },
+  "3": {
+    "skinName_P": "MapSkin_P_3",
+    "skinName_H": "MapSkin_H_3",
+    "iconName": "MapSkin_I_3",
+    "unlockWay": 1.0
+  }
+}

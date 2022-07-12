@@ -1,0 +1,225 @@
+﻿{
+  "0": {
+    "name": "空",
+    "canStayID": [],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 0.0,
+    "prefabName": "null"
+  },
+  "1": {
+    "name": "普通墙砖",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 0.0,
+    "prefabName": "Wall_Normal"
+  },
+  "2": {
+    "name": "左墙墙砖",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 0.0,
+    "prefabName": "Wall_Left"
+  },
+  "3": {
+    "name": "上墙墙砖",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 0.0,
+    "prefabName": "Wall_Up"
+  },
+  "4": {
+    "name": "左上墙墙砖",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 0.0,
+    "prefabName": "Wall_UpperLeft"
+  },
+  "101": {
+    "name": "石头",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": true,
+    "hasGravity": true,
+    "triggerEventID": 0.0,
+    "prefabName": "Stone"
+  },
+  "102": {
+    "name": "苹果",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": true,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 2.0,
+    "prefabName": "Apple"
+  },
+  "103": {
+    "name": "粽子",
+    "canStayID": [
+      101,
+      10001,
+      10002
+    ],
+    "eatable": true,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 2.0,
+    "prefabName": "ZongZi"
+  },
+  "201": {
+    "name": "尖刺_向上",
+    "canStayID": [],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": -1.0,
+    "prefabName": "Trap_1_0"
+  },
+  "202": {
+    "name": "尖刺_向下",
+    "canStayID": [],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": -1.0,
+    "prefabName": "Trap_1_1"
+  },
+  "203": {
+    "name": "尖刺_向左",
+    "canStayID": [],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": -1.0,
+    "prefabName": "Trap_1_2"
+  },
+  "204": {
+    "name": "尖刺_向右",
+    "canStayID": [],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": -1.0,
+    "prefabName": "Trap_1_3"
+  },
+  "205": {
+    "name": "圆锯",
+    "canStayID": [
+      101
+    ],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": -1.0,
+    "prefabName": "Trap_2"
+  },
+  "10001": {
+    "name": "蛇头",
+    "canStayID": [
+      101
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": true,
+    "triggerEventID": 0.0,
+    "prefabName": "Snake_Head"
+  },
+  "10002": {
+    "name": "蛇身",
+    "canStayID": [
+      101
+    ],
+    "eatable": false,
+    "canPassThrough": false,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 0.0,
+    "prefabName": "Snake_Body"
+  },
+  "301": {
+    "name": "传送门",
+    "canStayID": [
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 1.0,
+    "prefabName": "Door"
+  },
+  "302": {
+    "name": "传送门_彩蛋",
+    "canStayID": [
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 3.0,
+    "prefabName": "MysteryDoor"
+  },
+  "303": {
+    "name": "传送门_彩蛋关结束",
+    "canStayID": [
+      10001,
+      10002
+    ],
+    "eatable": false,
+    "canPassThrough": true,
+    "canPush": false,
+    "hasGravity": false,
+    "triggerEventID": 4.0,
+    "prefabName": "MysteryWinDoor"
+  }
+}
