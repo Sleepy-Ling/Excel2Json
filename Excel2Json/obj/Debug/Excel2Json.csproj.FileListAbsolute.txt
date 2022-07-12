@@ -16,7 +16,6 @@ E:\WinFormProject\Excel2Json\Excel2Json\bin\Debug\NPOI.OOXML.pdb
 E:\WinFormProject\Excel2Json\Excel2Json\bin\Debug\NPOI.OOXML.xml
 E:\WinFormProject\Excel2Json\Excel2Json\bin\Debug\NPOI.OpenXml4Net.pdb
 E:\WinFormProject\Excel2Json\Excel2Json\bin\Debug\NPOI.OpenXmlFormats.pdb
-E:\WinFormProject\Excel2Json\Excel2Json\obj\Debug\Excel2Json.csprojAssemblyReference.cache
 E:\WinFormProject\Excel2Json\Excel2Json\obj\Debug\Excel2Json.Form1.resources
 E:\WinFormProject\Excel2Json\Excel2Json\obj\Debug\Excel2Json.Properties.Resources.resources
 E:\WinFormProject\Excel2Json\Excel2Json\obj\Debug\Excel2Json.csproj.GenerateResource.cache

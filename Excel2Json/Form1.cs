@@ -101,7 +101,7 @@ namespace Excel2Json
                 this.OutFilePanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.onFileDragEnter);
                 this.OutFilePanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.onFileDragDrop);
 
-                if (jObject[ProjectPathKey] == null)
+                if (jObject[ProjectPathKey] == null|| jObject[ProjectPathKey].ToString() == "")
                 {
                     OutTSPath = OutJsonPath = Path.Combine(PARENT_PATH, OUT_FILE_DIR);//配置文件的目录地址;
                 }
