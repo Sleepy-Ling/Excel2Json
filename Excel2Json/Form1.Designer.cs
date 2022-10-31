@@ -41,13 +41,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.OutFileTextBox = new System.Windows.Forms.TextBox();
+            this.showResultBox = new System.Windows.Forms.TextBox();
+            this.btn_goExelPath = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.CheckFilePanel.SuspendLayout();
             this.OutFilePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveJsonBtn
             // 
-            this.SaveJsonBtn.Location = new System.Drawing.Point(79, 362);
+            this.SaveJsonBtn.Location = new System.Drawing.Point(575, 331);
             this.SaveJsonBtn.Name = "SaveJsonBtn";
             this.SaveJsonBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveJsonBtn.TabIndex = 0;
@@ -57,7 +60,7 @@
             // 
             // SaveTsBtn
             // 
-            this.SaveTsBtn.Location = new System.Drawing.Point(170, 362);
+            this.SaveTsBtn.Location = new System.Drawing.Point(689, 331);
             this.SaveTsBtn.Name = "SaveTsBtn";
             this.SaveTsBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveTsBtn.TabIndex = 1;
@@ -67,7 +70,7 @@
             // 
             // RefreshFile
             // 
-            this.RefreshFile.Location = new System.Drawing.Point(79, 289);
+            this.RefreshFile.Location = new System.Drawing.Point(575, 289);
             this.RefreshFile.Name = "RefreshFile";
             this.RefreshFile.Size = new System.Drawing.Size(88, 23);
             this.RefreshFile.TabIndex = 2;
@@ -79,12 +82,13 @@
             // 
             this.CheckFilePanel.AllowDrop = true;
             this.CheckFilePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.CheckFilePanel.Controls.Add(this.btn_goExelPath);
             this.CheckFilePanel.Controls.Add(this.label1);
             this.CheckFilePanel.Controls.Add(this.DragFileTextBox);
             this.CheckFilePanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CheckFilePanel.Location = new System.Drawing.Point(79, 25);
+            this.CheckFilePanel.Location = new System.Drawing.Point(12, 25);
             this.CheckFilePanel.Name = "CheckFilePanel";
-            this.CheckFilePanel.Size = new System.Drawing.Size(660, 113);
+            this.CheckFilePanel.Size = new System.Drawing.Size(385, 113);
             this.CheckFilePanel.TabIndex = 3;
             // 
             // label1
@@ -92,21 +96,21 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.Size = new System.Drawing.Size(143, 12);
             this.label1.TabIndex = 6;
-            this.label1.Text = "把文件拖到这里";
+            this.label1.Text = "把配置excel文件拖到这里";
             // 
             // DragFileTextBox
             // 
             this.DragFileTextBox.Location = new System.Drawing.Point(14, 39);
             this.DragFileTextBox.Multiline = true;
             this.DragFileTextBox.Name = "DragFileTextBox";
-            this.DragFileTextBox.Size = new System.Drawing.Size(592, 25);
+            this.DragFileTextBox.Size = new System.Drawing.Size(340, 25);
             this.DragFileTextBox.TabIndex = 5;
             // 
             // RecordFilePath
             // 
-            this.RecordFilePath.Location = new System.Drawing.Point(215, 289);
+            this.RecordFilePath.Location = new System.Drawing.Point(689, 289);
             this.RecordFilePath.Name = "RecordFilePath";
             this.RecordFilePath.Size = new System.Drawing.Size(75, 23);
             this.RecordFilePath.TabIndex = 4;
@@ -120,7 +124,7 @@
             // 
             // btn_SaveJsonAndTS
             // 
-            this.btn_SaveJsonAndTS.Location = new System.Drawing.Point(288, 362);
+            this.btn_SaveJsonAndTS.Location = new System.Drawing.Point(575, 373);
             this.btn_SaveJsonAndTS.Name = "btn_SaveJsonAndTS";
             this.btn_SaveJsonAndTS.Size = new System.Drawing.Size(95, 23);
             this.btn_SaveJsonAndTS.TabIndex = 5;
@@ -132,23 +136,24 @@
             // 
             this.OutFilePanel.AllowDrop = true;
             this.OutFilePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.OutFilePanel.Controls.Add(this.button2);
             this.OutFilePanel.Controls.Add(this.label3);
             this.OutFilePanel.Controls.Add(this.label2);
             this.OutFilePanel.Controls.Add(this.OutFileTextBox);
             this.OutFilePanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OutFilePanel.Location = new System.Drawing.Point(79, 144);
+            this.OutFilePanel.Location = new System.Drawing.Point(403, 25);
             this.OutFilePanel.Name = "OutFilePanel";
-            this.OutFilePanel.Size = new System.Drawing.Size(660, 113);
+            this.OutFilePanel.Size = new System.Drawing.Size(402, 113);
             this.OutFilePanel.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 39);
+            this.label3.Location = new System.Drawing.Point(14, 39);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.Size = new System.Drawing.Size(89, 12);
             this.label3.TabIndex = 7;
-            this.label3.Text = "label3";
+            this.label3.Text = "项目资源路径：";
             // 
             // label2
             // 
@@ -161,17 +166,46 @@
             // 
             // OutFileTextBox
             // 
-            this.OutFileTextBox.Location = new System.Drawing.Point(65, 36);
+            this.OutFileTextBox.Location = new System.Drawing.Point(16, 54);
             this.OutFileTextBox.Multiline = true;
             this.OutFileTextBox.Name = "OutFileTextBox";
-            this.OutFileTextBox.Size = new System.Drawing.Size(592, 25);
+            this.OutFileTextBox.Size = new System.Drawing.Size(369, 25);
             this.OutFileTextBox.TabIndex = 5;
+            // 
+            // showResultBox
+            // 
+            this.showResultBox.Location = new System.Drawing.Point(12, 209);
+            this.showResultBox.Multiline = true;
+            this.showResultBox.Name = "showResultBox";
+            this.showResultBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.showResultBox.Size = new System.Drawing.Size(407, 198);
+            this.showResultBox.TabIndex = 8;
+            // 
+            // btn_goExelPath
+            // 
+            this.btn_goExelPath.Location = new System.Drawing.Point(16, 87);
+            this.btn_goExelPath.Name = "btn_goExelPath";
+            this.btn_goExelPath.Size = new System.Drawing.Size(75, 23);
+            this.btn_goExelPath.TabIndex = 7;
+            this.btn_goExelPath.Text = "冲冲冲";
+            this.btn_goExelPath.UseVisualStyleBackColor = true;
+            this.btn_goExelPath.Click += new System.EventHandler(this.btn_goExelPath_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(16, 87);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.showResultBox);
             this.Controls.Add(this.OutFilePanel);
             this.Controls.Add(this.btn_SaveJsonAndTS);
             this.Controls.Add(this.RecordFilePath);
@@ -187,6 +221,7 @@
             this.OutFilePanel.ResumeLayout(false);
             this.OutFilePanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -205,6 +240,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox OutFileTextBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox showResultBox;
+        private System.Windows.Forms.Button btn_goExelPath;
+        private System.Windows.Forms.Button button2;
     }
 }
 
