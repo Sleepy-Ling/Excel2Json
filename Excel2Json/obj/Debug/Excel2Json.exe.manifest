@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2Json.exe" size="22480">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Excel2Json.exe" size="23504">
       <assemblyIdentity name="Excel2Json" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Azxlm7y0koaoqaODklJh3OyEtilh/lzHXypH+C3ZgEY=</dsig:DigestValue>
+        <dsig:DigestValue>RbSy3CNNxb/Objxc/fGH9NzgJ1e+5pnU9CtJMah/ZjE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

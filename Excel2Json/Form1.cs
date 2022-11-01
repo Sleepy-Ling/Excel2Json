@@ -127,38 +127,7 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void SaveJsonBtn_Click(object sender, EventArgs e)
         {
-            if (workbooks.Count == 0)
-            {
-                MessageBox.Show("excel地址为空");
-                return;
-            }
-            ShowMsgInBox("=======开始导出配置=======");
-            float startMillionSeconds = DateTime.Now.Millisecond;
-            foreach (IWorkbook currentWorkBook in workbooks)
-            {
-                string[] outString = this.createDictObjJsonBySheet(currentWorkBook);
-                string outDirPath = OutJsonPath;
-                AutoCreateDirectoryIfNotExist(outDirPath);
-
-                int sheetNum = currentWorkBook.NumberOfSheets;
-                for (int i = 0; i < sheetNum; i++)//遍历每个表单
-                {
-                    ISheet sheet = currentWorkBook.GetSheetAt(i);
-                    string outPath = Path.Combine(outDirPath, "Table_" + sheet.SheetName + ".json");//配置文件的绝对路径
-
-                    StreamWriter streamWriter = new StreamWriter(outPath, false, System.Text.Encoding.UTF8);
-                    streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
-                    streamWriter.WriteLine(outString[i]);
-                    streamWriter.Close();
-
-                    ShowMsgInBox(outString[i]);
-                }
-
-            }
-            float endMillionSeconds = DateTime.Now.Millisecond;
-            ShowMsgInBox("=======导出配置完毕=======");
-            ShowMsgInBox(string.Format("用时：{0}毫秒", endMillionSeconds - startMillionSeconds));
-            MessageBox.Show("配置导出成功");
+            buildJsonFile(workbooks);
         }
 
         /// <summary>
@@ -168,37 +137,7 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void SaveTsBtn_Click(object sender, EventArgs e)
         {
-            if (workbooks.Count == 0)
-            {
-                MessageBox.Show("excel地址为空");
-                return;
-            }
-            ShowMsgInBox("=======开始导出数据类型文件=======");
-            float startMillionSeconds = DateTime.Now.Millisecond;
-            foreach (IWorkbook currentWorkBook in workbooks)
-            {
-                string[] outString = this.createTsClass(templateFile, currentWorkBook);
-                string outDirPath = OutTSPath;//配置文件的目录地址
-                AutoCreateDirectoryIfNotExist(outDirPath);
-
-                int sheetNum = currentWorkBook.NumberOfSheets;
-                for (int i = 0; i < sheetNum; i++)//遍历每个表单
-                {
-                    ISheet sheet = currentWorkBook.GetSheetAt(i);
-                    string outPath = Path.Combine(outDirPath, "TBDATA_" + sheet.SheetName + ".ts");//配置文件的绝对路径
-
-                    StreamWriter streamWriter = new StreamWriter(outPath, false, System.Text.Encoding.UTF8);
-                    streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
-                    streamWriter.WriteLine(outString[i]);
-                    streamWriter.Close();
-                    ShowMsgInBox(outString[i]);
-                }
-            }
-            float endMillionSeconds = DateTime.Now.Millisecond;
-            ShowMsgInBox("=======导出配置完毕=======");
-            ShowMsgInBox(string.Format("用时：{0}毫秒", endMillionSeconds - startMillionSeconds));
-            MessageBox.Show("配置导出成功");
-            MessageBox.Show("类型定义脚本导出成功");
+            buildTSFile(workbooks);
         }
 
         /// <summary>
@@ -312,45 +251,6 @@ namespace Excel2Json
                                     default:
                                         break;
                                 }
-
-                                //Console.WriteLine(stt);
-                                //if (allTypeCells[j].StringCellValue == "string")
-                                //{
-                                //    string str = "";
-                                //    str = cell.StringCellValue;
-
-                                //    JArray array = this.tryDeserializeObject<JArray>(str);//尝试转成需要类型
-
-                                //    if (array != null)
-                                //    {
-                                //        rowObj[allNameCells[j].StringCellValue] = array;
-                                //        continue;
-                                //    }
-
-                                //    JObject tempObj = this.tryDeserializeObject<JObject>(str);//尝试转成需要类型
-                                //    if (tempObj != null)
-                                //    {
-                                //        rowObj[allNameCells[j].StringCellValue] = tempObj;
-                                //        continue;
-                                //    }
-
-                                //    str = str == null ? "" : str;
-
-                                //    rowObj[allNameCells[j].StringCellValue] = str;
-                                //}
-                                //else if (allTypeCells[j].StringCellValue == "int" || allTypeCells[j].StringCellValue == "number")
-                                //{
-                                //    rowObj[allNameCells[j].StringCellValue] = cell.NumericCellValue;
-                                //}
-                                //else if (allTypeCells[j].StringCellValue == "boolean")
-                                //{
-                                //    rowObj[allNameCells[j].StringCellValue] = cell.BooleanCellValue;
-                                //}
-                                //else
-                                //{
-                                //    rowObj[allNameCells[j].StringCellValue] = cell.StringCellValue;
-                                //}
-
                             }
                             catch (Exception e)
                             {
@@ -367,7 +267,7 @@ namespace Excel2Json
                     {
                         JToken jToken = JToken.FromObject(rowObj);
                         ICell headCell = currentRow.GetCell(Form1.dictJsonKeyIndex);
-                        if (allTypeCells[Form1.dictJsonKeyIndex].StringCellValue == "int" || allTypeCells[Form1.dictJsonKeyIndex].StringCellValue == "number")
+                        if (headCell.CellType == CellType.Numeric)
                         {
                             outObj.Add(headCell.NumericCellValue.ToString(), jToken);
                         }
@@ -403,6 +303,8 @@ namespace Excel2Json
             for (int i = 0; i < sheetNum; i++)//遍历每个表单
             {
                 ISheet sheet = workbook.GetSheetAt(i);
+
+
                 int rows = sheet.PhysicalNumberOfRows;//行数
                 if (rows.Equals(0))
                 {
@@ -411,12 +313,22 @@ namespace Excel2Json
 
                 IRow nameRow = sheet.GetRow(0);//取第一行为字段名
                 IRow typeRow = sheet.GetRow(1);//取第二行为类型值
-                DataTable dataTable = this.createDataTableByTypeRow(typeRow, nameRow);//创建对应字段的dataTable
 
-                List<ICell> typeList = typeRow.Cells;
 
-                int startReadRowIndex = 3;
-                System.Collections.IEnumerator enumerator = sheet.GetRowEnumerator();//获取行的迭代器
+                //字段行
+                List<ICell> allNameCells = nameRow.Cells;
+                //类型行
+                List<ICell> allTypeCells = typeRow.Cells;
+
+                int cols = allNameCells.Count;
+
+                int startReadRowIndex = Form1.tableHeadIndex;
+                System.Collections.IEnumerator enumerator = sheet.GetRowEnumerator();
+
+                JArray jArray = new JArray();
+                //string[] outObjArr =new string [cols];
+                List<string> outObjArr = new List<string>();
+
                 while (enumerator.MoveNext())
                 {
                     if (startReadRowIndex > 0)
@@ -426,78 +338,95 @@ namespace Excel2Json
                     }
 
                     IRow currentRow = enumerator.Current as IRow;//当前需要读取的行数据
-                    List<ICell> currentCellsList = currentRow.Cells;//当前行的每一列集合
-                    DataRow row = this.createDataRow(dataTable, currentCellsList);
-                    dataTable.Rows.Add(row);
+                    bool isEmptyRow = false;//当前行是否作废
+
+                    JObject rowObj = new JObject();
+                    for (int j = 0; j < cols; j++)
+                    {
+                        ICell cell = currentRow.GetCell(j, MissingCellPolicy.RETURN_BLANK_AS_NULL);
+
+                        if (j == Form1.dictJsonKeyIndex)//取第一列为key
+                        {
+                            if (cell == null)//如果第一列是空的格子，则没必要继续初始化下去了
+                            {
+                                isEmptyRow = true;
+                                break;
+                            }
+                        }
+
+                        if (cell == null)
+                        {
+                            //rowObj[allNameCells[j].StringCellValue] = null;
+                            continue;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                switch (cell.CellType)
+                                {
+                                    case CellType.Unknown:
+                                        break;
+                                    case CellType.Numeric:
+                                        rowObj[allNameCells[j].StringCellValue] = cell.NumericCellValue;
+                                        break;
+                                    case CellType.String:
+                                        string str = cell.StringCellValue;
+
+                                        JArray array = this.tryDeserializeObject<JArray>(str);//尝试转成需要类型
+
+                                        if (array != null)
+                                        {
+                                            rowObj[allNameCells[j].StringCellValue] = array;
+                                            continue;
+                                        }
+
+                                        JObject tempObj = this.tryDeserializeObject<JObject>(str);//尝试转成需要类型
+                                        if (tempObj != null)
+                                        {
+                                            rowObj[allNameCells[j].StringCellValue] = tempObj;
+                                            continue;
+                                        }
+                                        rowObj[allNameCells[j].StringCellValue] = str;
+                                        break;
+                                    case CellType.Formula:
+                                        break;
+                                    case CellType.Blank:
+                                        break;
+                                    case CellType.Boolean:
+                                        rowObj[allNameCells[j].StringCellValue] = cell.BooleanCellValue;
+                                        break;
+                                    case CellType.Error:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                ShowMsgInBox("=======error=======");
+                                ShowMsgInBox(string.Format("表单名{0} 行{1}:列{2} 数据出错", sheet.SheetName, currentRow.RowNum, j));
+                                MessageBox.Show(e.ToString());
+                            }
+
+                        }
+
+                    }
+
+                    if (!isEmptyRow)
+                    {
+                        JToken jToken = JToken.FromObject(rowObj);
+                        jArray.Add(rowObj);
+                    }
+
                 }
 
-                string json = JsonConvert.SerializeObject(dataTable, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(jArray, Formatting.Indented);
                 Console.WriteLine("输出的json:" + json);
                 strArr[i] = json;
             }
 
             return strArr;
-        }
-
-        private DataTable createDataTableByTypeRow(IRow TypeRow, IRow NameRow)
-        {
-            //序列化DataTable
-            DataTable dt = new DataTable();
-
-            List<ICell> allTypeCells = TypeRow.Cells;
-            List<ICell> allNameCells = NameRow.Cells;
-            for (int i = 0; i < allTypeCells.Count; i++)
-            {
-                ICell cell = allTypeCells[i];
-                string name = allNameCells[i].StringCellValue;
-                if (cell.StringCellValue == "string")
-                {
-                    dt.Columns.Add(name, Type.GetType("System.String"));
-                }
-
-                else if (cell.StringCellValue == "boolean")
-                {
-                    dt.Columns.Add(name, Type.GetType("System.Boolean"));
-                }
-
-                else if (cell.StringCellValue == "number" || cell.StringCellValue == "int")
-                {
-                    dt.Columns.Add(name, Type.GetType("System.Int32"));
-                }
-            }
-
-            return dt;
-        }
-
-        private DataRow createDataRow(DataTable dt, List<ICell> cells)
-        {
-            DataRow dataRow = dt.NewRow();
-
-            DataColumnCollection dataColumnCollection = dt.Columns;
-
-            for (int i = 0; i < dataColumnCollection.Count; i++)
-            {
-                DataColumn dataColumn = dataColumnCollection[i];
-
-                string name = dataColumn.ColumnName;
-                Type type = dataColumn.DataType;
-
-                if (type == Type.GetType("System.Int32"))
-                {
-                    dataRow[name] = cells[i].NumericCellValue;
-                }
-                else if (type == Type.GetType("System.Boolean"))
-                {
-                    dataRow[name] = cells[i].BooleanCellValue;
-                }
-                else if (type == Type.GetType("System.String"))
-                {
-                    dataRow[name] = cells[i].StringCellValue;
-                }
-            }
-
-            return dataRow;
-
         }
 
         /// <summary>
@@ -669,37 +598,7 @@ namespace Excel2Json
                 MessageBox.Show(err.ToString());
             }
 
-        }
-
-        private void loadExcel(string[] excelPaths)
-        {
-            try
-            {
-                if (workbooks.Count >= 0)
-                {
-                    foreach (IWorkbook book in workbooks)
-                    {
-                        book.Close();
-                    }
-                    workbooks.Clear();
-                }
-
-                foreach (string path in excelPaths)
-                {
-                    FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-                    IWorkbook workbook = WorkbookFactory.Create(fileStream);
-
-                    workbooks.Add(workbook);
-                    fileStream.Close();
-
-                }
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.ToString());
-            }
-
+            initOutFileCombobox(workbooks);
         }
 
         private void loadExcel(List<string> excelPaths)
@@ -730,6 +629,32 @@ namespace Excel2Json
                 MessageBox.Show(err.ToString());
             }
 
+            initOutFileCombobox(workbooks);
+        }
+
+        private void initOutFileCombobox(List<IWorkbook> workbooks)
+        {
+
+            Dictionary<int, string> kvDictonary = new Dictionary<int, string>();
+            int sheetIdx = 0;
+            kvDictonary.Add(sheetIdx, "全选");
+            sheetIdx++;
+            foreach (var book in workbooks)
+            {
+                int sheetNum = book.NumberOfSheets;
+                for (int i = 0; i < sheetNum; i++)//遍历每个表单
+                {
+                    kvDictonary.Add(sheetIdx, book.GetSheetAt(i).SheetName);
+                    sheetIdx++;
+                }
+            }
+
+            BindingSource bs = new BindingSource();
+            bs.DataSource = kvDictonary;
+
+            outJsonComboBox.DataSource = bs;
+            outJsonComboBox.ValueMember = "Key";
+            outJsonComboBox.DisplayMember = "Value";
         }
 
         private void onOpenFile(string filePath)
@@ -804,6 +729,111 @@ namespace Excel2Json
         }
 
         /// <summary>
+        /// 构建json文件
+        /// </summary>
+        /// <param name="workbooks">目标文件</param>
+        private void buildJsonFile(List<IWorkbook> workbooks)
+        {
+            if (workbooks.Count == 0)
+            {
+                MessageBox.Show("excel地址为空");
+                return;
+            }
+
+            string targetSheetName = null;
+            if (outJsonComboBox.SelectedIndex > 0)//导出特定表单
+            {
+                targetSheetName = outJsonComboBox.Text;
+            }
+
+            Boolean outDictJson = !checkOutArrJsonBox.Checked;//导出的json 格式是字典型还是数组型
+
+            ShowMsgInBox("=======开始导出配置=======");
+            float startMillionSeconds = DateTime.Now.Millisecond;
+            foreach (IWorkbook currentWorkBook in workbooks)
+            {
+                string outDirPath = OutJsonPath;
+                AutoCreateDirectoryIfNotExist(outDirPath);
+
+                int sheetNum = currentWorkBook.NumberOfSheets;
+                for (int i = 0; i < sheetNum; i++)//遍历每个表单
+                {
+                    ISheet sheet = currentWorkBook.GetSheetAt(i);
+                    if (targetSheetName != null && sheet.SheetName != targetSheetName)
+                    {
+                        continue;
+                    }
+
+                    string[] outString = outDictJson ? this.createDictObjJsonBySheet(currentWorkBook) : this.createArrayJsonBySheet(currentWorkBook);
+
+                    string outPath = Path.Combine(outDirPath, "Table_" + sheet.SheetName + ".json");//配置文件的绝对路径
+
+                    StreamWriter streamWriter = new StreamWriter(outPath, false, System.Text.Encoding.UTF8);
+                    streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
+                    streamWriter.WriteLine(outString[i]);
+                    streamWriter.Close();
+
+                    ShowMsgInBox(outString[i]);
+                }
+
+            }
+            float endMillionSeconds = DateTime.Now.Millisecond;
+            ShowMsgInBox("=======导出配置完毕=======");
+            ShowMsgInBox(string.Format("用时：{0}毫秒", endMillionSeconds - startMillionSeconds));
+            MessageBox.Show("配置导出成功");
+        }
+
+        /// <summary>
+        /// 构建ts文件
+        /// </summary>
+        /// <param name="workbooks">目标文件</param>
+        private void buildTSFile(List<IWorkbook> workbooks)
+        {
+            if (workbooks.Count == 0)
+            {
+                MessageBox.Show("excel地址为空");
+                return;
+            }
+
+            string targetSheetName = null;
+            if (outJsonComboBox.SelectedIndex > 0)//导出特定表单
+            {
+                targetSheetName = outJsonComboBox.Text;
+            }
+
+            ShowMsgInBox("=======开始导出数据类型文件=======");
+            float startMillionSeconds = DateTime.Now.Millisecond;
+            foreach (IWorkbook currentWorkBook in workbooks)
+            {
+                string[] outString = this.createTsClass(templateFile, currentWorkBook);
+                string outDirPath = OutTSPath;//配置文件的目录地址
+                AutoCreateDirectoryIfNotExist(outDirPath);
+
+                int sheetNum = currentWorkBook.NumberOfSheets;
+                for (int i = 0; i < sheetNum; i++)//遍历每个表单
+                {
+                    ISheet sheet = currentWorkBook.GetSheetAt(i);
+                    if (targetSheetName != null && sheet.SheetName != targetSheetName)
+                    {
+                        continue;
+                    }
+
+                    string outPath = Path.Combine(outDirPath, "TBDATA_" + sheet.SheetName + ".ts");//配置文件的绝对路径
+                    StreamWriter streamWriter = new StreamWriter(outPath, false, System.Text.Encoding.UTF8);
+                    streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
+                    streamWriter.WriteLine(outString[i]);
+                    streamWriter.Close();
+                    ShowMsgInBox(outString[i]);
+                }
+            }
+            float endMillionSeconds = DateTime.Now.Millisecond;
+            ShowMsgInBox("=======导出配置完毕=======");
+            ShowMsgInBox(string.Format("用时：{0}毫秒", endMillionSeconds - startMillionSeconds));
+            MessageBox.Show("配置导出成功");
+            MessageBox.Show("类型定义脚本导出成功");
+        }
+
+        /// <summary>
         /// 自动生成对应文件夹（如果改文件夹不存在）
         /// </summary>
         /// <param name="Path"></param>
@@ -831,6 +861,14 @@ namespace Excel2Json
         private void btn_goExelPath_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("Explorer.exe", DragFileTextBox.Text);
+        }
+
+        private void btn_goBuildPath_Click(object sender, EventArgs e)
+        {
+            if (OutFileTextBox.Text != null && !OutFileTextBox.Text.Equals(""))
+            {
+                System.Diagnostics.Process.Start("Explorer.exe", OutFileTextBox.Text);
+            }
         }
     }
 }
