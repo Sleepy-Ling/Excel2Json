@@ -39,7 +39,7 @@ namespace Excel2Json
         private static readonly string PARENT_PATH = Directory.GetParent(LOCAL_PATH).FullName;
 
         /// <summary>
-        /// 输出文件的目录名
+        /// 输出文件的目录名(默认
         /// </summary>
         private static readonly string OUT_FILE_DIR = "OutFiles";
 
@@ -63,6 +63,8 @@ namespace Excel2Json
         private static readonly string ExcelPathKey = "excelPath";
         private static readonly string ProjectPathKey = "outFilePath";
 
+        private static readonly string ExportConfigFilesName = "FileConfig.json";
+
         private List<IWorkbook> workbooks;
 
 
@@ -82,15 +84,28 @@ namespace Excel2Json
                 string configDirPath = Path.Combine(PARENT_PATH, CONFIG_FILE_DIR);//配置文件的目录地址
                 AutoCreateDirectoryIfNotExist(configDirPath);
 
-                string fileConfigPath = Path.Combine(configDirPath, "FileConfig.json");//配置文件的绝对路径
+                string fileConfigPath = Path.Combine(configDirPath, ExportConfigFilesName);//配置文件的绝对路径
                 string content = File.ReadAllText(fileConfigPath);
                 JObject jObject = JsonConvert.DeserializeObject<JObject>(content);
                 string filePath = jObject[ExcelPathKey].ToString();
                 this.onOpenFile(filePath);
                 this.DragFileTextBox.Text = filePath;
 
+                string defaultOutFilePath = Path.Combine(PARENT_PATH, OUT_FILE_DIR);//默认输出文件的目录地址;
+                OutTSPath = OutJsonPath = defaultOutFilePath;
+
                 filePath = jObject[ProjectPathKey] == null ? "" : jObject[ProjectPathKey].ToString();
                 this.OutFileTextBox.Text = filePath;
+
+                if (jObject[OutJsonPathKey] != null)
+                {
+                    this.OutJsonTextBox.Text = OutJsonPath = jObject[OutJsonPathKey].ToString();
+                }
+
+                if (jObject[OutTSPathKey] != null)
+                {
+                    this.OutTsTextBox.Text = OutTSPath = jObject[OutTSPathKey].ToString();
+                }
 
                 this.AllowDrop = true;
                 this.CheckFilePanel.AllowDrop = true;
@@ -101,16 +116,18 @@ namespace Excel2Json
                 this.OutFilePanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.onFileDragEnter);
                 this.OutFilePanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.onFileDragDrop);
 
-                if (jObject[ProjectPathKey] == null || jObject[ProjectPathKey].ToString() == "")
-                {
-                    OutTSPath = OutJsonPath = Path.Combine(PARENT_PATH, OUT_FILE_DIR);//配置文件的目录地址;
-                }
-                else
-                {
-                    string projectPath = jObject[ProjectPathKey].ToString();
-                    OutJsonPath = Path.Combine(projectPath, @"assets\config");
-                    OutTSPath = Path.Combine(projectPath, @"scripts\tableData");
-                }
+                //if (jObject[ProjectPathKey] == null || jObject[ProjectPathKey].ToString() == "")
+                //{
+                //    OutTSPath = OutJsonPath = Path.Combine(PARENT_PATH, OUT_FILE_DIR);//配置文件的目录地址;
+                //}
+                //else
+                //{
+                //    string projectPath = jObject[ProjectPathKey].ToString();
+                //    OutJsonPath = Path.Combine(projectPath, @"assets\config");
+                //    OutTSPath = Path.Combine(projectPath, @"scripts\tableData");
+                //}
+
+
 
             }
             catch (Exception err)
@@ -127,6 +144,9 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void SaveJsonBtn_Click(object sender, EventArgs e)
         {
+            string filePath = DragFileTextBox.Text;
+            onOpenFile(filePath);
+
             buildJsonFile(workbooks);
         }
 
@@ -137,6 +157,9 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void SaveTsBtn_Click(object sender, EventArgs e)
         {
+            string filePath = DragFileTextBox.Text;
+            onOpenFile(filePath);
+
             buildTSFile(workbooks);
         }
 
@@ -531,7 +554,8 @@ namespace Excel2Json
 
         private void RefreshFile_Click(object sender, EventArgs e)
         {
-            this.loadExcel(tempExcelPath);
+            string filePath = this.DragFileTextBox.Text;
+            onOpenFile(filePath);
 
         }
 
@@ -568,8 +592,8 @@ namespace Excel2Json
             else if (this.OutFilePanel == sender)
             {
                 this.OutFileTextBox.Text = filePath;
-                OutJsonPath = Path.Combine(filePath, @"assets\config");
-                OutTSPath = Path.Combine(filePath, @"scripts\tableData");
+                OutJsonTextBox.Text = OutJsonPath = Path.Combine(filePath, @"assets\config");
+                OutTsTextBox.Text = OutTSPath = Path.Combine(filePath, @"scripts\tableData");
             }
 
         }
@@ -590,6 +614,7 @@ namespace Excel2Json
                 FileStream fileStream = new FileStream(excelPaths, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
                 IWorkbook workbook = WorkbookFactory.Create(fileStream);
+
                 workbooks.Add(workbook);
                 fileStream.Close();
             }
@@ -657,6 +682,10 @@ namespace Excel2Json
             outJsonComboBox.DisplayMember = "Value";
         }
 
+        /// <summary>
+        /// 打开指定路径的文件
+        /// </summary>
+        /// <param name="filePath"></param>
         private void onOpenFile(string filePath)
         {
             if (filePath == null || filePath == "")
@@ -696,11 +725,13 @@ namespace Excel2Json
         {
             string configDirPath = Path.Combine(PARENT_PATH, CONFIG_FILE_DIR);//配置文件的目录地址
 
-            string fileConfigPath = Path.Combine(configDirPath, "FileConfig.json");//配置文件的绝对路径
+            string fileConfigPath = Path.Combine(configDirPath, ExportConfigFilesName);//配置文件的绝对路径
             string content = File.ReadAllText(fileConfigPath);
             JObject jObject = JsonConvert.DeserializeObject<JObject>(content);
             jObject[ExcelPathKey] = this.DragFileTextBox.Text;
             jObject[ProjectPathKey] = this.OutFileTextBox.Text;
+            jObject[OutJsonPathKey] = OutJsonTextBox.Text;
+            jObject[OutTSPathKey] = OutTsTextBox.Text;
 
             string outString = JsonConvert.SerializeObject(jObject, Formatting.Indented);
             StreamWriter streamWriter = new StreamWriter(fileConfigPath, false, System.Text.Encoding.UTF8);
@@ -708,24 +739,13 @@ namespace Excel2Json
             streamWriter.WriteLine(outString);
             streamWriter.Close();
 
-            if (jObject[ProjectPathKey] == null || jObject[ProjectPathKey].ToString() == "")
-            {
-                OutTSPath = OutJsonPath = Path.Combine(PARENT_PATH, OUT_FILE_DIR);//配置文件的目录地址;
-            }
-            else
-            {
-                string projectPath = jObject[ProjectPathKey].ToString();
-                OutJsonPath = Path.Combine(projectPath, @"assets\config");
-                OutTSPath = Path.Combine(projectPath, @"scripts\tableData");
-            }
-
             MessageBox.Show("保存地址成功", this.DragFileTextBox.Text);
         }
 
         private void btn_SaveJsonAndTS_Click(object sender, EventArgs e)
         {
-            this.SaveJsonBtn_Click(sender, e);
-            this.SaveTsBtn_Click(sender, e);
+            SaveJsonBtn_Click(sender, e);
+            SaveTsBtn_Click(sender, e);
         }
 
         /// <summary>
@@ -858,16 +878,42 @@ namespace Excel2Json
             showResultBox.AppendText(content + "\r\n");
         }
 
+        /// <summary>
+        /// 打开当前配置文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_goExelPath_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("Explorer.exe", DragFileTextBox.Text);
         }
 
+        /// <summary>
+        /// 打开当前构建目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_goBuildPath_Click(object sender, EventArgs e)
         {
             if (OutFileTextBox.Text != null && !OutFileTextBox.Text.Equals(""))
             {
                 System.Diagnostics.Process.Start("Explorer.exe", OutFileTextBox.Text);
+            }
+        }
+
+        private void btn_goBuildJsonPath_Click(object sender, EventArgs e)
+        {
+            if (OutJsonTextBox.Text != null && !OutJsonTextBox.Text.Equals(""))
+            {
+                System.Diagnostics.Process.Start("Explorer.exe", OutJsonTextBox.Text);
+            }
+        }
+
+        private void btn_goBuildTsPath_Click(object sender, EventArgs e)
+        {
+            if (OutTsTextBox.Text != null && !OutTsTextBox.Text.Equals(""))
+            {
+                System.Diagnostics.Process.Start("Explorer.exe", OutTsTextBox.Text);
             }
         }
     }

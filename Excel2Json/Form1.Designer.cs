@@ -30,7 +30,6 @@
         {
             this.SaveJsonBtn = new System.Windows.Forms.Button();
             this.SaveTsBtn = new System.Windows.Forms.Button();
-            this.RefreshFile = new System.Windows.Forms.Button();
             this.CheckFilePanel = new System.Windows.Forms.Panel();
             this.btn_goExelPath = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,13 +46,23 @@
             this.checkOutArrJsonBox = new System.Windows.Forms.CheckBox();
             this.outJsonComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_goBuildJsonPath = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.OutJsonTextBox = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_goBuildTsPath = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.OutTsTextBox = new System.Windows.Forms.TextBox();
             this.CheckFilePanel.SuspendLayout();
             this.OutFilePanel.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveJsonBtn
             // 
-            this.SaveJsonBtn.Location = new System.Drawing.Point(616, 346);
+            this.SaveJsonBtn.Location = new System.Drawing.Point(1088, 319);
             this.SaveJsonBtn.Name = "SaveJsonBtn";
             this.SaveJsonBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveJsonBtn.TabIndex = 0;
@@ -63,23 +72,13 @@
             // 
             // SaveTsBtn
             // 
-            this.SaveTsBtn.Location = new System.Drawing.Point(730, 346);
+            this.SaveTsBtn.Location = new System.Drawing.Point(1202, 319);
             this.SaveTsBtn.Name = "SaveTsBtn";
             this.SaveTsBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveTsBtn.TabIndex = 1;
             this.SaveTsBtn.Text = "SaveTs";
             this.SaveTsBtn.UseVisualStyleBackColor = true;
             this.SaveTsBtn.Click += new System.EventHandler(this.SaveTsBtn_Click);
-            // 
-            // RefreshFile
-            // 
-            this.RefreshFile.Location = new System.Drawing.Point(616, 304);
-            this.RefreshFile.Name = "RefreshFile";
-            this.RefreshFile.Size = new System.Drawing.Size(88, 23);
-            this.RefreshFile.TabIndex = 2;
-            this.RefreshFile.Text = "RefreshFile";
-            this.RefreshFile.UseVisualStyleBackColor = true;
-            this.RefreshFile.Click += new System.EventHandler(this.RefreshFile_Click);
             // 
             // CheckFilePanel
             // 
@@ -123,7 +122,7 @@
             // 
             // RecordFilePath
             // 
-            this.RecordFilePath.Location = new System.Drawing.Point(730, 304);
+            this.RecordFilePath.Location = new System.Drawing.Point(1088, 268);
             this.RecordFilePath.Name = "RecordFilePath";
             this.RecordFilePath.Size = new System.Drawing.Size(75, 23);
             this.RecordFilePath.TabIndex = 4;
@@ -137,7 +136,7 @@
             // 
             // btn_SaveJsonAndTS
             // 
-            this.btn_SaveJsonAndTS.Location = new System.Drawing.Point(616, 388);
+            this.btn_SaveJsonAndTS.Location = new System.Drawing.Point(1088, 361);
             this.btn_SaveJsonAndTS.Name = "btn_SaveJsonAndTS";
             this.btn_SaveJsonAndTS.Size = new System.Drawing.Size(95, 23);
             this.btn_SaveJsonAndTS.TabIndex = 5;
@@ -154,7 +153,7 @@
             this.OutFilePanel.Controls.Add(this.label2);
             this.OutFilePanel.Controls.Add(this.OutFileTextBox);
             this.OutFilePanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OutFilePanel.Location = new System.Drawing.Point(403, 25);
+            this.OutFilePanel.Location = new System.Drawing.Point(459, 25);
             this.OutFilePanel.Name = "OutFilePanel";
             this.OutFilePanel.Size = new System.Drawing.Size(402, 113);
             this.OutFilePanel.TabIndex = 7;
@@ -207,7 +206,7 @@
             // checkOutArrJsonBox
             // 
             this.checkOutArrJsonBox.AutoSize = true;
-            this.checkOutArrJsonBox.Location = new System.Drawing.Point(616, 185);
+            this.checkOutArrJsonBox.Location = new System.Drawing.Point(1088, 244);
             this.checkOutArrJsonBox.Name = "checkOutArrJsonBox";
             this.checkOutArrJsonBox.Size = new System.Drawing.Size(156, 16);
             this.checkOutArrJsonBox.TabIndex = 9;
@@ -218,7 +217,7 @@
             // 
             this.outJsonComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.outJsonComboBox.FormattingEnabled = true;
-            this.outJsonComboBox.Location = new System.Drawing.Point(450, 185);
+            this.outJsonComboBox.Location = new System.Drawing.Point(922, 244);
             this.outJsonComboBox.Name = "outJsonComboBox";
             this.outJsonComboBox.Size = new System.Drawing.Size(121, 20);
             this.outJsonComboBox.TabIndex = 10;
@@ -227,17 +226,99 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(446, 161);
+            this.label4.Location = new System.Drawing.Point(918, 220);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(105, 14);
             this.label4.TabIndex = 11;
             this.label4.Text = "目标输出表单名";
             // 
+            // panel1
+            // 
+            this.panel1.AllowDrop = true;
+            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Controls.Add(this.btn_goBuildJsonPath);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.OutJsonTextBox);
+            this.panel1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.panel1.Location = new System.Drawing.Point(459, 147);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(402, 113);
+            this.panel1.TabIndex = 9;
+            // 
+            // btn_goBuildJsonPath
+            // 
+            this.btn_goBuildJsonPath.Location = new System.Drawing.Point(16, 87);
+            this.btn_goBuildJsonPath.Name = "btn_goBuildJsonPath";
+            this.btn_goBuildJsonPath.Size = new System.Drawing.Size(75, 23);
+            this.btn_goBuildJsonPath.TabIndex = 8;
+            this.btn_goBuildJsonPath.Text = "冲不动了";
+            this.btn_goBuildJsonPath.UseVisualStyleBackColor = true;
+            this.btn_goBuildJsonPath.Click += new System.EventHandler(this.btn_goBuildJsonPath_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 39);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Json目录：";
+            // 
+            // OutJsonTextBox
+            // 
+            this.OutJsonTextBox.Location = new System.Drawing.Point(16, 54);
+            this.OutJsonTextBox.Multiline = true;
+            this.OutJsonTextBox.Name = "OutJsonTextBox";
+            this.OutJsonTextBox.Size = new System.Drawing.Size(369, 25);
+            this.OutJsonTextBox.TabIndex = 5;
+            // 
+            // panel2
+            // 
+            this.panel2.AllowDrop = true;
+            this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel2.Controls.Add(this.btn_goBuildTsPath);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.OutTsTextBox);
+            this.panel2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.panel2.Location = new System.Drawing.Point(459, 271);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(402, 113);
+            this.panel2.TabIndex = 10;
+            // 
+            // btn_goBuildTsPath
+            // 
+            this.btn_goBuildTsPath.Location = new System.Drawing.Point(16, 87);
+            this.btn_goBuildTsPath.Name = "btn_goBuildTsPath";
+            this.btn_goBuildTsPath.Size = new System.Drawing.Size(75, 23);
+            this.btn_goBuildTsPath.TabIndex = 8;
+            this.btn_goBuildTsPath.Text = "冲不动了";
+            this.btn_goBuildTsPath.UseVisualStyleBackColor = true;
+            this.btn_goBuildTsPath.Click += new System.EventHandler(this.btn_goBuildTsPath_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 39);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 12);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Json对应结构体目录：";
+            // 
+            // OutTsTextBox
+            // 
+            this.OutTsTextBox.Location = new System.Drawing.Point(16, 54);
+            this.OutTsTextBox.Multiline = true;
+            this.OutTsTextBox.Name = "OutTsTextBox";
+            this.OutTsTextBox.Size = new System.Drawing.Size(369, 25);
+            this.OutTsTextBox.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(980, 450);
+            this.ClientSize = new System.Drawing.Size(1375, 450);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.outJsonComboBox);
             this.Controls.Add(this.checkOutArrJsonBox);
@@ -246,7 +327,6 @@
             this.Controls.Add(this.btn_SaveJsonAndTS);
             this.Controls.Add(this.RecordFilePath);
             this.Controls.Add(this.CheckFilePanel);
-            this.Controls.Add(this.RefreshFile);
             this.Controls.Add(this.SaveTsBtn);
             this.Controls.Add(this.SaveJsonBtn);
             this.Name = "Form1";
@@ -256,6 +336,10 @@
             this.CheckFilePanel.PerformLayout();
             this.OutFilePanel.ResumeLayout(false);
             this.OutFilePanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,7 +349,6 @@
 
         private System.Windows.Forms.Button SaveJsonBtn;
         private System.Windows.Forms.Button SaveTsBtn;
-        private System.Windows.Forms.Button RefreshFile;
         private System.Windows.Forms.Panel CheckFilePanel;
         private System.Windows.Forms.Button RecordFilePath;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
@@ -282,6 +365,14 @@
         private System.Windows.Forms.CheckBox checkOutArrJsonBox;
         private System.Windows.Forms.ComboBox outJsonComboBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btn_goBuildJsonPath;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox OutJsonTextBox;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btn_goBuildTsPath;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox OutTsTextBox;
     }
 }
 
