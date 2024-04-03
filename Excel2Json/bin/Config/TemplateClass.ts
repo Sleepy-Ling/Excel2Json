@@ -1,4 +1,4 @@
-export class $TemplateClass {
+export declare class $TemplateClass {
     /*-----property start-----*/
     /*-----property end-----*/
 

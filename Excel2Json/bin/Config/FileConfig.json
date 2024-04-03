@@ -1,6 +1,19 @@
 ﻿{
-  "excelPath": "D:\\游戏配置\\GameConfig.xlsx",
-  "outFilePath": "D:\\游戏配置\\模拟导出",
-  "OutJsonPath": "D:\\游戏配置\\模拟导出\\assets\\config",
-  "OutTSPath": "D:\\游戏配置\\模拟导出\\scripts\\tableData"
+  "CurIndex": 0,
+  "History": [
+    {
+      "Tag": "11",
+      "ExcelPath": "C:\\Users\\pc\\Desktop\\飞机配置新\\关卡配置.xlsx",
+      "OutFilePath": "D:\\游戏配置\\模拟导出",
+      "OutJsonPath": "D:\\游戏配置\\模拟导出\\AssetsBundles\\Config",
+      "OutTSPath": "D:\\游戏配置\\模拟导出\\Scripts\\TableData"
+    },
+    {
+      "Tag": "333",
+      "ExcelPath": "C:\\Users\\pc\\Desktop\\飞机配置新\\关卡配置.xlsx",
+      "OutFilePath": "D:\\游戏配置\\模拟导出",
+      "OutJsonPath": "D:\\游戏配置\\模拟导出\\AssetsBundles\\CC",
+      "OutTSPath": "D:\\游戏配置\\模拟导出\\AssetsBundles\\ttt"
+    }
+  ]
 }
