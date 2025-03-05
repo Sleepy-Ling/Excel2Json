@@ -30,10 +30,10 @@
         {
             this.SaveJsonBtn = new System.Windows.Forms.Button();
             this.SaveTsBtn = new System.Windows.Forms.Button();
-            this.CheckFilePanel = new System.Windows.Forms.Panel();
+            this.CheckSrcExcelPanel = new System.Windows.Forms.Panel();
             this.btn_goExelPath = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.DragFileTextBox = new System.Windows.Forms.TextBox();
+            this.DragSrcExcelTextBox = new System.Windows.Forms.TextBox();
             this.RecordFilePath = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btn_SaveJsonAndTS = new System.Windows.Forms.Button();
@@ -63,7 +63,8 @@
             this.ConfigTagTextBox = new System.Windows.Forms.TextBox();
             this.clearDirectoryCheckBox = new System.Windows.Forms.CheckBox();
             this.DeleteFilePath = new System.Windows.Forms.Button();
-            this.CheckFilePanel.SuspendLayout();
+            this.ResetAllFilePath = new System.Windows.Forms.Button();
+            this.CheckSrcExcelPanel.SuspendLayout();
             this.OutFilePanel.SuspendLayout();
             this.OutJsonFilePanel.SuspendLayout();
             this.OutStructFilePanel.SuspendLayout();
@@ -75,7 +76,7 @@
             this.SaveJsonBtn.Name = "SaveJsonBtn";
             this.SaveJsonBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveJsonBtn.TabIndex = 0;
-            this.SaveJsonBtn.Text = "SaveJson";
+            this.SaveJsonBtn.Text = "导出json数据";
             this.SaveJsonBtn.UseVisualStyleBackColor = true;
             this.SaveJsonBtn.Click += new System.EventHandler(this.SaveJsonBtn_Click);
             // 
@@ -85,23 +86,23 @@
             this.SaveTsBtn.Name = "SaveTsBtn";
             this.SaveTsBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveTsBtn.TabIndex = 1;
-            this.SaveTsBtn.Text = "SaveTs";
+            this.SaveTsBtn.Text = "导出结构体";
             this.SaveTsBtn.UseVisualStyleBackColor = true;
             this.SaveTsBtn.Click += new System.EventHandler(this.SaveTsBtn_Click);
             // 
-            // CheckFilePanel
+            // CheckSrcExcelPanel
             // 
-            this.CheckFilePanel.AllowDrop = true;
-            this.CheckFilePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.CheckFilePanel.Controls.Add(this.btn_goExelPath);
-            this.CheckFilePanel.Controls.Add(this.label1);
-            this.CheckFilePanel.Controls.Add(this.DragFileTextBox);
-            this.CheckFilePanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CheckFilePanel.Location = new System.Drawing.Point(12, 25);
-            this.CheckFilePanel.Name = "CheckFilePanel";
-            this.CheckFilePanel.Size = new System.Drawing.Size(385, 113);
-            this.CheckFilePanel.TabIndex = 3;
-            this.CheckFilePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.CheckFilePanel_Paint);
+            this.CheckSrcExcelPanel.AllowDrop = true;
+            this.CheckSrcExcelPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.CheckSrcExcelPanel.Controls.Add(this.btn_goExelPath);
+            this.CheckSrcExcelPanel.Controls.Add(this.label1);
+            this.CheckSrcExcelPanel.Controls.Add(this.DragSrcExcelTextBox);
+            this.CheckSrcExcelPanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CheckSrcExcelPanel.Location = new System.Drawing.Point(12, 25);
+            this.CheckSrcExcelPanel.Name = "CheckSrcExcelPanel";
+            this.CheckSrcExcelPanel.Size = new System.Drawing.Size(385, 113);
+            this.CheckSrcExcelPanel.TabIndex = 3;
+            this.CheckSrcExcelPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.CheckFilePanel_Paint);
             // 
             // btn_goExelPath
             // 
@@ -122,13 +123,13 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "把配置excel文件拖到这里";
             // 
-            // DragFileTextBox
+            // DragSrcExcelTextBox
             // 
-            this.DragFileTextBox.Location = new System.Drawing.Point(14, 39);
-            this.DragFileTextBox.Multiline = true;
-            this.DragFileTextBox.Name = "DragFileTextBox";
-            this.DragFileTextBox.Size = new System.Drawing.Size(340, 25);
-            this.DragFileTextBox.TabIndex = 5;
+            this.DragSrcExcelTextBox.Location = new System.Drawing.Point(14, 39);
+            this.DragSrcExcelTextBox.Multiline = true;
+            this.DragSrcExcelTextBox.Name = "DragSrcExcelTextBox";
+            this.DragSrcExcelTextBox.Size = new System.Drawing.Size(340, 25);
+            this.DragSrcExcelTextBox.TabIndex = 5;
             // 
             // RecordFilePath
             // 
@@ -136,7 +137,7 @@
             this.RecordFilePath.Name = "RecordFilePath";
             this.RecordFilePath.Size = new System.Drawing.Size(121, 23);
             this.RecordFilePath.TabIndex = 4;
-            this.RecordFilePath.Text = "RecordFilePath";
+            this.RecordFilePath.Text = "记录数据";
             this.RecordFilePath.UseVisualStyleBackColor = true;
             this.RecordFilePath.Click += new System.EventHandler(this.RecordFilePath_Click);
             // 
@@ -146,11 +147,11 @@
             // 
             // btn_SaveJsonAndTS
             // 
-            this.btn_SaveJsonAndTS.Location = new System.Drawing.Point(1088, 361);
+            this.btn_SaveJsonAndTS.Location = new System.Drawing.Point(1062, 361);
             this.btn_SaveJsonAndTS.Name = "btn_SaveJsonAndTS";
-            this.btn_SaveJsonAndTS.Size = new System.Drawing.Size(95, 23);
+            this.btn_SaveJsonAndTS.Size = new System.Drawing.Size(121, 23);
             this.btn_SaveJsonAndTS.TabIndex = 5;
-            this.btn_SaveJsonAndTS.Text = "SaveJsonAndTS";
+            this.btn_SaveJsonAndTS.Text = "导出json和结构体";
             this.btn_SaveJsonAndTS.UseVisualStyleBackColor = true;
             this.btn_SaveJsonAndTS.Click += new System.EventHandler(this.btn_SaveJsonAndTS_Click);
             // 
@@ -174,7 +175,7 @@
             this.btn_goBuildPath.Name = "btn_goBuildPath";
             this.btn_goBuildPath.Size = new System.Drawing.Size(75, 23);
             this.btn_goBuildPath.TabIndex = 8;
-            this.btn_goBuildPath.Text = "冲不动了";
+            this.btn_goBuildPath.Text = "确定";
             this.btn_goBuildPath.UseVisualStyleBackColor = true;
             this.btn_goBuildPath.Click += new System.EventHandler(this.btn_goBuildPath_Click);
             // 
@@ -274,7 +275,7 @@
             this.OutJsonPrefixTextBox.Name = "OutJsonPrefixTextBox";
             this.OutJsonPrefixTextBox.Size = new System.Drawing.Size(252, 21);
             this.OutJsonPrefixTextBox.TabIndex = 9;
-            this.OutJsonPrefixTextBox.Text = "AssetsBundles\\Config";
+            this.OutJsonPrefixTextBox.Text = "assets\\AssetsBundles\\Config";
             // 
             // btn_goBuildJsonPath
             // 
@@ -282,7 +283,7 @@
             this.btn_goBuildJsonPath.Name = "btn_goBuildJsonPath";
             this.btn_goBuildJsonPath.Size = new System.Drawing.Size(75, 23);
             this.btn_goBuildJsonPath.TabIndex = 8;
-            this.btn_goBuildJsonPath.Text = "冲不动了";
+            this.btn_goBuildJsonPath.Text = "确定";
             this.btn_goBuildJsonPath.UseVisualStyleBackColor = true;
             this.btn_goBuildJsonPath.Click += new System.EventHandler(this.btn_goBuildJsonPath_Click);
             // 
@@ -333,7 +334,7 @@
             this.btn_goBuildTsPath.Name = "btn_goBuildTsPath";
             this.btn_goBuildTsPath.Size = new System.Drawing.Size(75, 23);
             this.btn_goBuildTsPath.TabIndex = 8;
-            this.btn_goBuildTsPath.Text = "冲不动了";
+            this.btn_goBuildTsPath.Text = "确定";
             this.btn_goBuildTsPath.UseVisualStyleBackColor = true;
             this.btn_goBuildTsPath.Click += new System.EventHandler(this.btn_goBuildTsPath_Click);
             // 
@@ -343,7 +344,7 @@
             this.OutTsPrefixTextBox.Name = "OutTsPrefixTextBox";
             this.OutTsPrefixTextBox.Size = new System.Drawing.Size(216, 21);
             this.OutTsPrefixTextBox.TabIndex = 11;
-            this.OutTsPrefixTextBox.Text = "Scripts\\TableData";
+            this.OutTsPrefixTextBox.Text = "assets\\Scripts\\TableData";
             // 
             // label6
             // 
@@ -395,9 +396,9 @@
             this.clearDirectoryCheckBox.AutoSize = true;
             this.clearDirectoryCheckBox.Location = new System.Drawing.Point(1088, 271);
             this.clearDirectoryCheckBox.Name = "clearDirectoryCheckBox";
-            this.clearDirectoryCheckBox.Size = new System.Drawing.Size(168, 16);
+            this.clearDirectoryCheckBox.Size = new System.Drawing.Size(204, 16);
             this.clearDirectoryCheckBox.TabIndex = 14;
-            this.clearDirectoryCheckBox.Text = "是否清空对应目录（谨慎）";
+            this.clearDirectoryCheckBox.Text = "是否清空对应目录再构建（谨慎）";
             this.clearDirectoryCheckBox.UseVisualStyleBackColor = true;
             // 
             // DeleteFilePath
@@ -406,15 +407,26 @@
             this.DeleteFilePath.Name = "DeleteFilePath";
             this.DeleteFilePath.Size = new System.Drawing.Size(121, 23);
             this.DeleteFilePath.TabIndex = 15;
-            this.DeleteFilePath.Text = "DeleteFilePath";
+            this.DeleteFilePath.Text = "删除该记录";
             this.DeleteFilePath.UseVisualStyleBackColor = true;
             this.DeleteFilePath.Click += new System.EventHandler(this.DeleteFilePath_Click);
+            // 
+            // ResetAllFilePath
+            // 
+            this.ResetAllFilePath.Location = new System.Drawing.Point(1202, 75);
+            this.ResetAllFilePath.Name = "ResetAllFilePath";
+            this.ResetAllFilePath.Size = new System.Drawing.Size(121, 23);
+            this.ResetAllFilePath.TabIndex = 16;
+            this.ResetAllFilePath.Text = "重置全部记录";
+            this.ResetAllFilePath.UseVisualStyleBackColor = true;
+            this.ResetAllFilePath.Click += new System.EventHandler(this.ResetAllFilePath_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1375, 450);
+            this.Controls.Add(this.ResetAllFilePath);
             this.Controls.Add(this.DeleteFilePath);
             this.Controls.Add(this.clearDirectoryCheckBox);
             this.Controls.Add(this.ConfigTagTextBox);
@@ -429,14 +441,14 @@
             this.Controls.Add(this.OutFilePanel);
             this.Controls.Add(this.btn_SaveJsonAndTS);
             this.Controls.Add(this.RecordFilePath);
-            this.Controls.Add(this.CheckFilePanel);
+            this.Controls.Add(this.CheckSrcExcelPanel);
             this.Controls.Add(this.SaveTsBtn);
             this.Controls.Add(this.SaveJsonBtn);
             this.Name = "Form1";
             this.Text = "Excel2Json  By:ling";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.CheckFilePanel.ResumeLayout(false);
-            this.CheckFilePanel.PerformLayout();
+            this.CheckSrcExcelPanel.ResumeLayout(false);
+            this.CheckSrcExcelPanel.PerformLayout();
             this.OutFilePanel.ResumeLayout(false);
             this.OutFilePanel.PerformLayout();
             this.OutJsonFilePanel.ResumeLayout(false);
@@ -452,10 +464,10 @@
 
         private System.Windows.Forms.Button SaveJsonBtn;
         private System.Windows.Forms.Button SaveTsBtn;
-        private System.Windows.Forms.Panel CheckFilePanel;
+        private System.Windows.Forms.Panel CheckSrcExcelPanel;
         private System.Windows.Forms.Button RecordFilePath;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.TextBox DragFileTextBox;
+        private System.Windows.Forms.TextBox DragSrcExcelTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_SaveJsonAndTS;
         private System.Windows.Forms.Panel OutFilePanel;
@@ -485,6 +497,7 @@
         private System.Windows.Forms.TextBox ConfigTagTextBox;
         private System.Windows.Forms.CheckBox clearDirectoryCheckBox;
         private System.Windows.Forms.Button DeleteFilePath;
+        private System.Windows.Forms.Button ResetAllFilePath;
     }
 }
 

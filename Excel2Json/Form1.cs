@@ -28,7 +28,6 @@ namespace Excel2Json
         /// </summary>
         private static int dictJsonKeyIndex = 0;
 
-
         /// <summary>
         /// 软件本地路径
         /// </summary>
@@ -58,10 +57,10 @@ namespace Excel2Json
         /// </summary>
         private string templateFile = Path.Combine(PARENT_PATH, CONFIG_FILE_DIR + @"\TemplateClass.ts");
 
-        private static readonly string OutJsonPathKey = "OutJsonPath";
-        private static readonly string OutTSPathKey = "OutTSPath";
-        private static readonly string ExcelPathKey = "ExcelPath";
-        private static readonly string ProjectPathKey = "OutFilePath";
+        /// <summary>
+        /// 目标项目的配置文件目录
+        /// </summary>
+        private static readonly string DefaultSrcExcelPath = @"assets\配置";
 
         private static readonly string ExportConfigFilesName = "FileConfig.json";
 
@@ -92,12 +91,12 @@ namespace Excel2Json
                 this.DefaultOutFilePath = defaultOutFilePath;
 
                 FileConfigHistory historyData = JsonConvert.DeserializeObject<FileConfigHistory>(content);
-
-                ConfigFileData configFileData = historyData.History[historyData.CurIndex];
+                int historyDataIndex = historyData.CurIndex;
+                ConfigFileData configFileData = historyData.History[historyDataIndex];
 
                 string filePath = configFileData.ExcelPath;
                 this.onOpenFile(filePath);
-                this.DragFileTextBox.Text = filePath;
+                this.DragSrcExcelTextBox.Text = filePath;
 
                 filePath = configFileData.OutFilePath;
                 this.OutFileTextBox.Text = filePath;
@@ -108,7 +107,7 @@ namespace Excel2Json
                 filePath = configFileData.OutTSPath;
                 this.OutTsTextBox.Text = filePath;
 
-                InitConfigHistoryListComboBox(historyData.History);
+                InitConfigHistoryListComboBox(historyData.History, historyDataIndex);
                 //JObject jObject = JsonConvert.DeserializeObject<JObject>(content);
                 //string filePath = jObject[ExcelPathKey].ToString();
                 //this.onOpenFile(filePath);
@@ -131,9 +130,9 @@ namespace Excel2Json
                 //}
 
                 this.AllowDrop = true;
-                this.CheckFilePanel.AllowDrop = true;
-                this.CheckFilePanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.onFileDragEnter);
-                this.CheckFilePanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.onFileDragDrop);
+                this.CheckSrcExcelPanel.AllowDrop = true;
+                this.CheckSrcExcelPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.onFileDragEnter);
+                this.CheckSrcExcelPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.onFileDragDrop);
 
                 this.OutFilePanel.AllowDrop = true;
                 this.OutFilePanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.onFileDragEnter);
@@ -175,7 +174,7 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void SaveJsonBtn_Click(object sender, EventArgs e)
         {
-            string filePath = DragFileTextBox.Text;
+            string filePath = DragSrcExcelTextBox.Text;
             onOpenFile(filePath, curOutJsonComboBoxIndex);
             buildJsonFile(workbooks);
         }
@@ -187,7 +186,7 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void SaveTsBtn_Click(object sender, EventArgs e)
         {
-            string filePath = DragFileTextBox.Text;
+            string filePath = DragSrcExcelTextBox.Text;
             onOpenFile(filePath, curOutJsonComboBoxIndex);
 
             buildTSFile(workbooks);
@@ -589,7 +588,7 @@ namespace Excel2Json
 
         private void RefreshFile_Click(object sender, EventArgs e)
         {
-            string filePath = this.DragFileTextBox.Text;
+            string filePath = this.DragSrcExcelTextBox.Text;
             onOpenFile(filePath);
 
         }
@@ -618,23 +617,24 @@ namespace Excel2Json
             //获取单个文件地址
             string filePath = fileObj.GetValue(0).ToString();
 
-            if (this.CheckFilePanel == (sender as Panel))
+            if (this.CheckSrcExcelPanel == (sender as Panel))//配置原文件地址
             {
-                this.DragFileTextBox.Text = filePath;
+                this.DragSrcExcelTextBox.Text = filePath;
                 onOpenFile(filePath);
 
             }
-            else if (this.OutFilePanel == sender)
+            else if (this.OutFilePanel == sender)//目标输出的项目根目录
             {
                 this.OutFileTextBox.Text = filePath;
                 OutJsonTextBox.Text = Path.Combine(filePath, OutJsonPrefixTextBox.Text);
                 OutTsTextBox.Text = Path.Combine(filePath, OutTsPrefixTextBox.Text);
+                DragSrcExcelTextBox.Text = Path.Combine(filePath, DefaultSrcExcelPath);
             }
-            else if (this.OutJsonFilePanel == sender)
+            else if (this.OutJsonFilePanel == sender)//目标输出的项目json目录
             {
                 OutJsonTextBox.Text = filePath;
             }
-            else if (this.OutStructFilePanel == sender)
+            else if (this.OutStructFilePanel == sender)//目标输出的项目结构体脚本目录
             {
                 OutTsTextBox.Text = filePath;
             }
@@ -773,7 +773,7 @@ namespace Excel2Json
 
             this.OutTsTextBox.Text = data.OutTSPath;
 
-            this.DragFileTextBox.Text = data.ExcelPath;
+            this.DragSrcExcelTextBox.Text = data.ExcelPath;
 
             ConfigTagTextBox.Text = data.Tag;
 
@@ -837,7 +837,7 @@ namespace Excel2Json
               return d.Tag == this.ConfigTagTextBox.Text;
           });
 
-            ConfigFileData nowData = new ConfigFileData(this.ConfigTagTextBox.Text, this.DragFileTextBox.Text,
+            ConfigFileData nowData = new ConfigFileData(this.ConfigTagTextBox.Text, this.DragSrcExcelTextBox.Text,
         this.OutFileTextBox.Text, this.OutJsonTextBox.Text, this.OutTsTextBox.Text);
 
             if (curIndex == -1)
@@ -850,20 +850,18 @@ namespace Excel2Json
                 configFileDatas[curIndex] = nowData;
             }
 
-            string outString = JsonConvert.SerializeObject(historyData, Formatting.Indented);
-            StreamWriter streamWriter = new StreamWriter(fileConfigPath, false, System.Text.Encoding.UTF8);
-            streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
-            streamWriter.WriteLine(outString);
-            streamWriter.Close();
 
-            MessageBox.Show("保存地址成功", this.DragFileTextBox.Text);
+            MessageBox.Show("保存地址成功", this.DragSrcExcelTextBox.Text);
+
+            historyData.CurIndex = curIndex;
+            this.saveHistoryData(historyData);
 
             this.InitConfigHistoryListComboBox(configFileDatas, curIndex);
         }
 
         private void btn_SaveJsonAndTS_Click(object sender, EventArgs e)
         {
-            string filePath = DragFileTextBox.Text;
+            string filePath = DragSrcExcelTextBox.Text;
             onOpenFile(filePath, curOutJsonComboBoxIndex);
             buildJsonFile(workbooks);
             buildTSFile(workbooks);
@@ -1030,7 +1028,7 @@ namespace Excel2Json
         /// <param name="e"></param>
         private void btn_goExelPath_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("Explorer.exe", DragFileTextBox.Text);
+            System.Diagnostics.Process.Start("Explorer.exe", DragSrcExcelTextBox.Text);
         }
 
         /// <summary>
@@ -1078,6 +1076,9 @@ namespace Excel2Json
             string content = File.ReadAllText(fileConfigPath);
 
             FileConfigHistory historyData = JsonConvert.DeserializeObject<FileConfigHistory>(content);
+            historyData.CurIndex = curIndex;
+            this.saveHistoryData(historyData);
+
             ConfigFileData configFileData = historyData.History[curIndex];
             string tag = configFileData.Tag;
             this.ConfigTagTextBox.Text = tag;
@@ -1118,6 +1119,12 @@ namespace Excel2Json
             FileConfigHistory historyData = JsonConvert.DeserializeObject<FileConfigHistory>(content);
             List<ConfigFileData> configFileDatas = historyData.History;
 
+            if (configFileDatas.Count <= 1)
+            {
+                MessageBox.Show("至少有一个元素");
+                return;
+            }
+
             int curIndex = configFileDatas.FindIndex((d) =>
              {
                  return d.Tag == ConfigTagTextBox.Text;
@@ -1128,15 +1135,9 @@ namespace Excel2Json
                 configFileDatas.RemoveAt(curIndex);
             }
 
-            string outString = JsonConvert.SerializeObject(historyData, Formatting.Indented);
+            this.saveHistoryData(historyData);
 
-            Console.Write(outString);
-            StreamWriter streamWriter = new StreamWriter(fileConfigPath, false, System.Text.Encoding.UTF8);
-            streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
-            streamWriter.WriteLine(outString);
-            streamWriter.Close();
-
-            MessageBox.Show("删除地址成功", this.DragFileTextBox.Text);
+            MessageBox.Show("删除地址成功", this.DragSrcExcelTextBox.Text);
 
             if (configFileDatas.Count > 0)
             {
@@ -1152,7 +1153,46 @@ namespace Excel2Json
 
             }
         }
+
+        /// <summary>
+        /// 保存历史数据
+        /// </summary>
+        /// <param name="historyData"></param>
+        private void saveHistoryData(FileConfigHistory historyData)
+        {
+            string configDirPath = Path.Combine(PARENT_PATH, CONFIG_FILE_DIR);//配置文件的目录地址
+            string fileConfigPath = Path.Combine(configDirPath, ExportConfigFilesName);//配置文件的绝对路径
+
+            string outString = JsonConvert.SerializeObject(historyData, Formatting.Indented);
+
+            Console.Write(outString);
+            StreamWriter streamWriter = new StreamWriter(fileConfigPath, false, System.Text.Encoding.UTF8);
+            streamWriter.AutoFlush = true;//每次调用write 方法则将数据写入基础流（文件）  如果为false，则每次调用完write()后，调用flush()或close()，才将数据写入基础流。
+            streamWriter.WriteLine(outString);
+            streamWriter.Close();
+        }
+        /// <summary>
+        /// 重置全部文件记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetAllFilePath_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("注意：这将会删除全部记录！！！", "注意", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                FileConfigHistory newHistroy = new FileConfigHistory();
+                newHistroy.CurIndex = 0;
+                newHistroy.History = new List<ConfigFileData>();
+                ConfigFileData cfData = new ConfigFileData("", "", "", "", "");
+                newHistroy.History.Add(cfData);
+
+                this.saveHistoryData(newHistroy);
+                this.InitConfigHistoryListComboBox(newHistroy.History);
+            }
+
+        }
     }
+
 
     struct ConfigFileData
     {
